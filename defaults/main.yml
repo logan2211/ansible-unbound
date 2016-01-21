@@ -1,0 +1,43 @@
+---
+unbound_conf_dir: /etc/unbound/unbound.conf.d
+
+unbound_upstream_resolvers:
+  - 4.2.2.1
+  - 4.2.2.2
+  - 8.8.8.8
+  - 8.8.4.4
+unbound_localzone_mode: static
+unbound_root_zone: openstack
+unbound_regional_zone: "{{ service_region }}.{{ unbound_root_zone }}"
+unbound_listen_interface: 0.0.0.0
+unbound_access_control:
+  - cidr: 0.0.0.0/0
+    action: allow
+
+#see /etc/default/unbound for info on these
+unbound_trust_anchor_update: true
+#use the unbound resolvers as local nameservers for the remote system
+unbound_resolvconf: true
+#configure resolvconf nameservers to be used as forwarders by unbound
+unbound_resolvconf_forwarders: false
+
+#deploys to server like priority-template.conf
+#so for example, 000-server.conf in unbound_conf_dir which is in the include path by default
+unbound_configuration_templates:
+  - template: "server.conf"
+    priority: 0
+  - template: "openstack.conf"
+
+#additional records example:
+#unbound_records:
+#  - name: 'extra'
+#    priority: 50 (optional)
+#    records:
+#      - { host: hostname1.openstack, val: 10.10.10.1, type: A }
+#      - { host: hostname2.openstack, val: 10.10.10.2, type: A }
+unbound_records: []
+
+unbound_apt_packages:
+  - unbound
+  - unbound-anchor
+  - unbound-host

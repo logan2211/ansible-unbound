@@ -1,0 +1,18 @@
+# {{ ansible_managed }}
+
+server:
+{% for container in groups['all_containers'] %}
+	local-data: "{{ container }}.{{ unbound_regional_zone }} A {{ hostvars[container]['ansible_ssh_host'] }}"
+{% endfor %}
+
+{% for container in groups['hosts'] %}
+	local-data: "{{ container }}.{{ unbound_regional_zone }} A {{ hostvars[container]['ansible_ssh_host'] }}"
+{% endfor %}
+
+{% for container in groups['compute_hosts'] %}
+  {% if nova_live_migration_interface is defined and hostvars[container]['ansible_' + nova_live_migration_interface] is defined and hostvars[container]['ansible_' + nova_live_migration_interface]['active'] == true %}
+	local-data: "{{ container }}-lm.{{ unbound_regional_zone }} A {{ hostvars[container]['ansible_' + nova_live_migration_interface]['ipv4']['address'] }}"
+  {% else %}
+	local-data: "{{ container }}-lm.{{ unbound_regional_zone }} A {{ hostvars[container]['ansible_ssh_host'] }}"
+  {% endif %}
+{% endfor %}
