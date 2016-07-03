@@ -1,12 +1,12 @@
 # {{ ansible_managed }}
 
 server:
-{% for container in groups['all_containers'] %}
+{% for container in groups['all'] %}
 	local-data: "{{ container }}.{{ unbound_regional_zone }} A {{ hostvars[container]['ansible_ssh_host'] }}"
-{% endfor %}
-
-{% for container in groups['hosts'] %}
-	local-data: "{{ container }}.{{ unbound_regional_zone }} A {{ hostvars[container]['ansible_ssh_host'] }}"
+  {% set target_rfc_1034_1035_name = item|replace('_', '-') %}
+	{% if target_rfc_1034_1035_name != container %}
+	local-data: "{{ target_rfc_1034_1035_name }}.{{ unbound_regional_zone }} A {{ hostvars[container]['ansible_ssh_host'] }}"
+	{% endif %}
 {% endfor %}
 
 {% for container in groups['compute_hosts'] %}
