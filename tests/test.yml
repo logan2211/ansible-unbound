@@ -20,6 +20,7 @@
     - role: "{{ rolename | basename }}"
   vars:
     service_region: nova
+    unbound_listen_interface: 127.0.0.1
   post_tasks:
     - name: Check unbound is running
       command: pgrep -a unbound
