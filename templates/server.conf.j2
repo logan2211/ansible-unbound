@@ -6,6 +6,9 @@ server:
 	access-control: {{ i.cidr }} {{ i.action }}
 {% endfor %}
 	local-zone: "{{ unbound_root_zone }}" {{ unbound_localzone_mode }}
+{% if not unbound_ipv6 | bool %}
+	do-ip6: no
+{% endif %}
 
 forward-zone:
 	name: "."
