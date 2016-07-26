@@ -13,14 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include: unbound_install_apt.yml
-  when:
-    - ansible_pkg_mgr == 'apt'
-  tags:
-    - install-apt
+unbound_packages:
+  - unbound
 
-- include: unbound_install_yum.yml
-  when:
-    - ansible_pkg_mgr == 'yum'
-  tags:
-    - install-yum
+unbound_conf_dir: /etc/unbound/conf.d
