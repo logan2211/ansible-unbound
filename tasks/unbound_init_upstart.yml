@@ -13,14 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include: unbound_install_apt.yml
-  when:
-    - ansible_pkg_mgr == 'apt'
+- name: Configure unbound upstart defaults
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify:
+    - Reload init scripts
+    - Restart unbound
+  with_items:
+    - { src: "unbound-upstart-default.j2", dest: "/etc/default/unbound" }
   tags:
-    - install-apt
-
-- include: unbound_install_yum.yml
-  when:
-    - ansible_pkg_mgr == 'yum'
-  tags:
-    - install-yum
+    - unbound-config
+    - unbound-init
+    - upstart-init

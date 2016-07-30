@@ -13,14 +13,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include: unbound_install_apt.yml
-  when:
-    - ansible_pkg_mgr == 'apt'
+- include: unbound_init_upstart.yml
+  when: pid1_name == "init"
   tags:
-    - install-apt
+    - upstart-init
+    - unbound-init
 
-- include: unbound_install_yum.yml
-  when:
-    - ansible_pkg_mgr == 'yum'
+# not needed for now as there is no systemd overrides implemented
+#- include: unbound_init_systemd.yml
+#  when: pid1_name == "systemd"
+#  tags:
+#    - systemd-init
+#    - unbound-init
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: Start unbound and add to boot services
+  service:
+   name: "unbound"
+   enabled: "yes"
   tags:
-    - install-yum
+    - unbound-init

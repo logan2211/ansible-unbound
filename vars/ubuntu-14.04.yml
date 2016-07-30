@@ -13,14 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include: unbound_install_apt.yml
-  when:
-    - ansible_pkg_mgr == 'apt'
-  tags:
-    - install-apt
+## APT Cache Options
+cache_timeout: 600
 
-- include: unbound_install_yum.yml
-  when:
-    - ansible_pkg_mgr == 'yum'
-  tags:
-    - install-yum
+unbound_packages:
+  - unbound
+  - unbound-anchor
+  - unbound-host
+
+unbound_conf_dir: /etc/unbound/unbound.conf.d
+
+#see /etc/default/unbound for info on these
+unbound_trust_anchor_update: true
+#use the unbound resolvers as local nameservers for the remote system
+unbound_resolvconf: true
+#configure resolvconf nameservers to be used as forwarders by unbound
+unbound_resolvconf_forwarders: false

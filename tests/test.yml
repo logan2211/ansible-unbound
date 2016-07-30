@@ -27,9 +27,10 @@
       command: pgrep -a unbound
       register: unbound_proc
     - name: Test unbound resolution
-      shell: host google.com 127.0.0.1
+      set_fact:
+        unbound_resolution_test: "{{ lookup('dig', 'google.com @127.0.0.1') }}"
       register: unbound_lookup
     - name: Check role functions
       assert:
         that:
-          - "'google.com has address' in unbound_lookup.stdout"
+          - "unbound_resolution_test != ''"
