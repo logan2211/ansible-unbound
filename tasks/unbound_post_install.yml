@@ -36,7 +36,7 @@
     mode: '0644'
   notify:
     - Restart unbound
-  with_items: unbound_configuration_templates
+  with_items: "{{ unbound_configuration_templates }}"
   tags:
     - unbound-config
 
@@ -49,7 +49,7 @@
     mode: '0644'
   notify:
     - Restart unbound
-  with_items: unbound_records
+  with_items: "{{ unbound_records }}"
   tags:
     - unbound-config
 
