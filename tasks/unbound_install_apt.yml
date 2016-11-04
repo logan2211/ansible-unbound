@@ -23,7 +23,7 @@
 - name: Update apt if needed
   apt:
     update_cache: yes
-  when: "ansible_date_time.epoch|float - apt_cache_stat.stat.mtime > {{cache_timeout}}"
+  when: ansible_date_time.epoch|float - apt_cache_stat.stat.mtime > cache_timeout
   tags:
     - unbound-apt-packages
 
