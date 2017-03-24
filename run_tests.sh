@@ -18,12 +18,12 @@ set -euov
 FUNCTIONAL_TEST=${FUNCTIONAL_TEST:-true}
 
 # prep the host
-if [ "$(which apt-get)" ]; then
+if which apt-get &>/dev/null && ! which zypper &>/dev/null; then
   apt-get update && apt-get install -y build-essential python2.7 python-dev git-core libffi-dev libssl-dev
-fi
-
-if [ "$(which yum)" ]; then
+elif which yum &>/dev/null; then
   yum install -y '@Development Tools' python-devel git libffi-devel openssl-devel
+elif which zypper &>/dev/null; then
+  zypper -n install python-devel git-core libffi-devel libopenssl-devel
 fi
 
 # get pip, if necessary

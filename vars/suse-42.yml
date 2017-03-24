@@ -1,5 +1,5 @@
 ---
-# Copyright 2016, Logan Vig <logan2211@gmail.com>
+# Copyright 2017, SUSE LINUX GmbH.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,20 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include: unbound_install_apt.yml
-  when:
-    - ansible_pkg_mgr == 'apt'
-  tags:
-    - install-apt
+unbound_packages:
+  - unbound
 
-- include: unbound_install_yum.yml
-  when:
-    - ansible_pkg_mgr == 'yum'
-  tags:
-    - install-yum
-
-- include: unbound_install_zypper.yml
-  when:
-    - ansible_pkg_mgr == 'zypper'
-  tags:
-    - install-zypper
+unbound_conf_dir: /etc/unbound/conf.d
