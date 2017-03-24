@@ -1,5 +1,5 @@
 ---
-# Copyright 2016, Logan Vig <logan2211@gmail.com>
+# Copyright 2017, SUSE LINUX GmbH.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,20 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include: unbound_install_apt.yml
-  when:
-    - ansible_pkg_mgr == 'apt'
-  tags:
-    - install-apt
-
-- include: unbound_install_yum.yml
-  when:
-    - ansible_pkg_mgr == 'yum'
-  tags:
-    - install-yum
-
-- include: unbound_install_zypper.yml
-  when:
-    - ansible_pkg_mgr == 'zypper'
-  tags:
-    - install-zypper
+# NOTE(hwoarang): unbound-checkcnf needs pidfile to be present
+# in the server section so we define it to the default value.
+unbound_pid_file: /var/run/unbound/unbound.pid
