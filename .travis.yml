@@ -48,6 +48,12 @@ env:
     tag=centos-7
     init=/usr/lib/systemd/systemd
     run_opts="-u root --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+  - >
+    toxenv=functional_stable
+    image=logan2211/docker-ci
+    tag=opensuse-42.2
+    init=/usr/lib/systemd/systemd
+    run_opts="-u root --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
 before_install:
   - 'docker pull ${image}:${tag}'
 script:
