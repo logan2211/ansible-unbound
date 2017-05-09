@@ -1,5 +1,16 @@
 [all]
-localhost ansible_connection=local ansible_become=True ansible_host=127.0.0.1
+localhost ansible_connection=local ansible_become=True
+
+[test_containers]
+unbound physical_host=localhost
 
 [compute_hosts]
-localhost
+unbound
+
+[docker_containers:children]
+test_containers
+
+[docker_containers:vars]
+ansible_connection=docker
+docker_privileged=yes
+docker_user=root

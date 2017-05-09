@@ -14,7 +14,7 @@ server:
 {% for container in groups['compute_hosts'] %}
   {% if nova_live_migration_interface is defined and hostvars[container]['ansible_' + nova_live_migration_interface] is defined and hostvars[container]['ansible_' + nova_live_migration_interface]['active'] == true %}
 	local-data: "{{ container }}-lm.{{ unbound_regional_zone }} A {{ hostvars[container]['ansible_' + nova_live_migration_interface]['ipv4']['address'] }}"
-  {% else %}
+  {% elif hostvars[container]['ansible_host'] is defined %}
 	local-data: "{{ container }}-lm.{{ unbound_regional_zone }} A {{ hostvars[container]['ansible_host'] }}"
   {% endif %}
 {% endfor %}
