@@ -17,3 +17,7 @@ unbound_packages:
   - unbound
 
 unbound_conf_dir: /etc/unbound/conf.d
+
+# NOTE(hwoarang): unbound-checkcnf needs pidfile to be present
+# in the server section so we define it to the default value.
+unbound_pid_file: /var/run/unbound/unbound.pid
