@@ -9,7 +9,9 @@ server:
 {% if not unbound_ipv6 | bool %}
 	do-ip6: no
 {% endif %}
-    pidfile: "{{ unbound_pid_file }}"
+{% if unbound_pid_file is defined %}
+	pidfile: "{{ unbound_pid_file }}"
+{% endif %}
 
 forward-zone:
 	name: "."

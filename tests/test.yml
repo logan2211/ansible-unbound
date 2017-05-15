@@ -19,19 +19,33 @@
   hosts: test_containers
   roles:
     - role: "{{ rolename | basename }}"
-  vars:
-    service_region: nova
-    unbound_listen_interface: 127.0.0.1
-    unbound_ipv6: false
   post_tasks:
     - name: Check unbound is running
       command: pgrep -a unbound
       register: unbound_proc
+      changed_when: false
+    - name: Check unbound configuration
+      command: unbound-checkconf
+      changed_when: false
+    - name: Install host lookup package (apt)
+      apt:
+        name: host
+      when: ansible_pkg_mgr == 'apt'
+    - name: Install host lookup package (yum)
+      yum:
+        name: bind-utils
+      when: ansible_pkg_mgr == 'yum'
+    - name: Install host lookup package (zypper)
+      zypper:
+        name: bind-utils
+      when: ansible_pkg_mgr == 'zypper'
     - name: Test unbound resolution
-      set_fact:
-        unbound_resolution_test: "{{ lookup('dig', 'google.com @127.0.0.1') }}"
+      command: host google.com 127.0.0.1
       register: unbound_lookup
-    - name: Check role functions
-      assert:
-        that:
-          - "unbound_resolution_test != ''"
+      retries: 10
+      delay: 5
+      changed_when: false
+  vars:
+    service_region: nova
+    unbound_listen_interface: 127.0.0.1
+    unbound_ipv6: false
