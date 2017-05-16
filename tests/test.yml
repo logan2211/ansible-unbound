@@ -45,6 +45,16 @@
       retries: 10
       delay: 5
       changed_when: false
+    - name: Test unbound resolution
+      command: host {{ item.host }} 127.0.0.1
+      register: unbound_localzone_lookup
+      retries: 3
+      delay: 5
+      failed_when: "item.host ~ ' has address ' ~ item.expected_address not in unbound_localzone_lookup.stdout"
+      changed_when: false
+      with_items:
+        - host: "testvalid.{{ unbound_regional_zone }}"
+          expected_address: "{{ hostvars['testvalid']['ansible_host'] }}"
   vars:
     service_region: nova
     unbound_listen_interface: 127.0.0.1
