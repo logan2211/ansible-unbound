@@ -1,5 +1,6 @@
 ---
 # Copyright 2016, Logan Vig <logan2211@gmail.com>
+# Copyright 2017, Major Hayden <major@mhtx.net>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +15,7 @@
 # limitations under the License.
 
 - name: Install unbound yum packages
-  yum:
+  package:
     pkg: "{{ item }}"
     state: "{{ unbound_package_state }}"
   register: install_packages
