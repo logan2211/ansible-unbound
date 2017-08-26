@@ -13,24 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: Check apt last update file
-  stat:
-    path: /var/cache/apt
-  register: apt_cache_stat
-  tags:
-    - unbound-apt-packages
-
-- name: Update apt if needed
-  apt:
-    update_cache: yes
-  when: ansible_date_time.epoch|float - apt_cache_stat.stat.mtime > cache_timeout
-  tags:
-    - unbound-apt-packages
-
 - name: Install unbound packages
   apt:
     pkg: "{{ item }}"
     state: "{{ unbound_package_state }}"
+    update_cache: yes
+    cache_valid_time: "{{ cache_timeout }}"
   register: install_packages
   until: install_packages | success
   retries: 5
