@@ -9,7 +9,7 @@ services:
 env:
   global:
     - ANSIBLE_FORCE_COLOR=1
-    - docker_image=logan2211/docker-ci
+    - docker_image=quay.io/loganv/docker-ci
     - docker_command=/lib/systemd/systemd
     - cache_dir=$HOME/.docker
   matrix:
