@@ -26,3 +26,13 @@
   with_items: "{{ unbound_packages }}"
   tags:
     - unbound-apt-packages
+
+- name: Configure unbound service defaults
+  template:
+    src: unbound-service-defaults.j2
+    dest: /etc/default/unbound
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify:
+    - Restart unbound
