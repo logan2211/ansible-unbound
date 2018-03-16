@@ -16,17 +16,7 @@ env:
     # LINTERS
     - TOXENV=linters
       CACHE_NAME=linters
-    # ANSIBLE 2.1 (NEWTON)
-    - >
-      TOXENV=functional_2.1
-      docker_image_tag=ubuntu-trusty
-      docker_command=/sbin/init
-      CACHE_NAME=trusty
-    - >
-      TOXENV=functional_2.1
-      docker_image_tag=ubuntu-xenial
-      CACHE_NAME=xenial
-    # ANSIBLE 2.2 (OCATA)
+    # ANSIBLE 2.2
     - >
       TOXENV=functional_2.2
       docker_image_tag=ubuntu-xenial
@@ -35,7 +25,35 @@ env:
       TOXENV=functional_2.2
       docker_image_tag=centos-7
       CACHE_NAME=cent7
-    # ANSIBLE stable (OSA MASTER)
+    # ANSIBLE 2.3
+    - >
+      TOXENV=functional_2.3
+      docker_image_tag=ubuntu-xenial
+      CACHE_NAME=xenial
+    - >
+      TOXENV=functional_2.3
+      docker_image_tag=centos-7
+      CACHE_NAME=cent7
+    - >
+      TOXENV=functional_2.3
+      docker_image_tag=opensuse-42.2
+      CACHE_NAME=suse42
+      docker_command=/usr/lib/systemd/systemd
+    # ANSIBLE 2.4
+    - >
+      TOXENV=functional_2.4
+      docker_image_tag=ubuntu-xenial
+      CACHE_NAME=xenial
+    - >
+      TOXENV=functional_2.4
+      docker_image_tag=centos-7
+      CACHE_NAME=cent7
+    - >
+      TOXENV=functional_2.4
+      docker_image_tag=opensuse-42.2
+      CACHE_NAME=suse42
+      docker_command=/usr/lib/systemd/systemd
+    # ANSIBLE stable
     - >
       TOXENV=functional_stable
       docker_image_tag=ubuntu-xenial
