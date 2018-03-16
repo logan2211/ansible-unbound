@@ -53,4 +53,7 @@
   tags:
     - unbound-config
 
-- include: unbound_init.yml
+- name: Start unbound and add to boot services
+  service:
+   name: "unbound"
+   enabled: "yes"
