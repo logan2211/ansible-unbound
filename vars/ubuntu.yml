@@ -29,3 +29,5 @@ unbound_trust_anchor_update: true
 unbound_resolvconf: true
 #configure resolvconf nameservers to be used as forwarders by unbound
 unbound_resolvconf_forwarders: false
+
+unbound_validate_cmd: 'unbound-checkconf %s'

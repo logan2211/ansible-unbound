@@ -34,6 +34,7 @@
     owner: root
     group: root
     mode: '0644'
+    validate: "{{ unbound_validate_cmd | default(omit) }}"
   notify:
     - Restart unbound
   with_items: "{{ unbound_configuration_templates }}"
@@ -47,6 +48,7 @@
     owner: root
     group: root
     mode: '0644'
+    validate: "{{ unbound_validate_cmd | default(omit) }}"
   notify:
     - Restart unbound
   with_items: "{{ unbound_records }}"
