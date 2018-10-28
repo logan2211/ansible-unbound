@@ -23,11 +23,11 @@ unbound_packages:
 
 unbound_conf_dir: /etc/unbound/unbound.conf.d
 
-#see /etc/default/unbound for info on these
+# see /etc/default/unbound for info on these
 unbound_trust_anchor_update: true
-#use the unbound resolvers as local nameservers for the remote system
+# use the unbound resolvers as local nameservers for the remote system
 unbound_resolvconf: true
-#configure resolvconf nameservers to be used as forwarders by unbound
+# configure resolvconf nameservers to be used as forwarders by unbound
 unbound_resolvconf_forwarders: false
 
 unbound_validate_cmd: 'unbound-checkconf %s'
