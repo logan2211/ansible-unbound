@@ -28,21 +28,21 @@ unbound_access_control:
   - cidr: 0.0.0.0/0
     action: allow
 
-#bind ipv6 socket
+# bind ipv6 socket
 unbound_ipv6: true
 
-#deploys to server like priority-template.conf
-#so for example, 000-server.conf in unbound_conf_dir which is in the include path by default
+# deploys to server like priority-template.conf
+# so for example, 000-server.conf in unbound_conf_dir which is in the include path by default
 unbound_configuration_templates:
   - template: "server.conf"
     priority: 0
   - template: "openstack.conf"
 
-#additional records example:
-#unbound_records:
-#  - name: 'extra'
-#    priority: 50 (optional)
-#    records:
-#      - { host: hostname1.openstack, val: 10.10.10.1, type: A }
-#      - { host: hostname2.openstack, val: 10.10.10.2, type: A }
+# additional records example:
+# unbound_records:
+#   - name: 'extra'
+#     priority: 50 (optional)
+#     records:
+#       - { host: hostname1.openstack, val: 10.10.10.1, type: A }
+#       - { host: hostname2.openstack, val: 10.10.10.2, type: A }
 unbound_records: []

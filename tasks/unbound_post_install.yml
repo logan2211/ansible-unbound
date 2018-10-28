@@ -30,6 +30,7 @@
 - name: Drop unbound local configurations
   template:
     src: "{{ item.template }}.j2"
+    # yamllint disable-line rule:line-length
     dest: "{{ unbound_conf_dir }}/{{ (item.priority|default('50')|string).rjust(3, '0') }}-{{ item.template | basename }}"
     owner: root
     group: root
@@ -57,5 +58,5 @@
 
 - name: Start unbound and add to boot services
   service:
-   name: "unbound"
-   enabled: "yes"
+    name: "unbound"
+    enabled: "yes"
