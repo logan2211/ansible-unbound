@@ -10,17 +10,17 @@ on:
 
 jobs:
   molecule:
-    runs-on: ${{ matrix.scenario }}
+    runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
       fail-fast: false
       matrix:
         scenario:
-          - centos-8
-          - centos-9
-          - debian-11
-          - ubuntu-20.04
-          - ubuntu-22.04
+          - centos-systemd:stream8
+          - centos-systemd:stream9
+          - debian-systemd:11
+          - ubuntu-systemd:20.04
+          - ubuntu-systemd:22.04
         python-version:
           - 3.8
         ansible-version:
@@ -48,4 +48,5 @@ jobs:
       - name: Test with molecule
         run: |
           cd ${{ github.repository }}
+          export docker_image_tag="${{ matrix.scenario }}"
           python3 -m molecule test
