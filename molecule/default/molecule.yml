@@ -9,7 +9,7 @@ lint:
     config-file: molecule/default/yaml-lint.yml
 platforms:
   - name: instance
-    image: "${docker_image:-quay.io/loganv/docker-ci}:${docker_image_tag:-ubuntu-xenial}"
+    image: "${docker_image:-quay.io/loganv/docker-ci}:${docker_image_tag:-ubuntu-focal}"
     # NOTE(logan): Uncomment user arg once upstream PR is released
     # https://github.com/metacloud/molecule/pull/1526
     # user: root
