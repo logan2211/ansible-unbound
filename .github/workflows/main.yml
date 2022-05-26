@@ -10,7 +10,7 @@ on:
 
 jobs:
   molecule:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.scenario }}
     strategy:
       max-parallel: 4
       fail-fast: false
