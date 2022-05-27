@@ -18,8 +18,10 @@
         groups:
           - compute_hosts
       changed_when: false
-  roles:
-    - role: "{{ playbook_dir | dirname | dirname | basename }}"
+  tasks:
+    - name: "Include ansible-unbound"
+      include_role: 
+        name: "{{ playbook_dir | dirname | dirname | basename }}"
   post_tasks:
     - name: Check unbound configuration
       command: unbound-checkconf

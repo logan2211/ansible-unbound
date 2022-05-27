@@ -15,6 +15,9 @@
 
 galaxy_info:
   author: logan
+  # https://github.com/ansible/ansible-lint/issues/979
+  # https://github.com/ansible/ansible-lint/issues/966
+  role_name: ansible_unbound
   description: Deployment of unbound caching DNS resolver
   license: Apache2
   min_ansible_version: 2.4
@@ -29,7 +32,7 @@ galaxy_info:
     - name: opensuse
       versions:
         - all
-  categories:
+  galaxy_tags:
     - dns
     - resolution
 dependencies: []

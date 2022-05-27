@@ -3,16 +3,13 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
-  options:
-    config-file: molecule/default/yaml-lint.yml
+lint: |
+  set -e
+  ansible-lint
 platforms:
   - name: instance
     image: "${docker_image:-quay.io/loganv/docker-ci}:${docker_image_tag:-ubuntu-xenial}"
-    # NOTE(logan): Uncomment user arg once upstream PR is released
-    # https://github.com/metacloud/molecule/pull/1526
-    # user: root
+    user: root
     command: ${docker_command:-/lib/systemd/systemd}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -23,9 +20,6 @@ provisioner:
   lint:
     name: ansible-lint
   playbooks:
-    # NOTE(logan): Use custom create playbook with user: root until upstream
-    # merges https://github.com/metacloud/molecule/pull/1526
-    create: create.yml
     converge: playbook.yml
 scenario:
   name: default
