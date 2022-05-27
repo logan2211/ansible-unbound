@@ -1,5 +1,5 @@
 ---
-- name: Converge
+- name: Verify
   hosts: all
   pre_tasks:
     - name: Add the fake test hosts
@@ -17,12 +17,7 @@
         name: "{{ inventory_hostname }}"
         groups:
           - compute_hosts
-      changed_when: false
   tasks:
-    - name: "Include ansible-unbound"
-      include_role: 
-        name: "{{ playbook_dir | dirname | dirname | basename }}"
-  post_tasks:
     - name: Check unbound configuration
       command: unbound-checkconf
       changed_when: false
@@ -55,6 +50,6 @@
         - host: "testvalid.{{ unbound_regional_zone }}"
           expected_address: "{{ hostvars['testvalid']['ansible_host'] }}"
   vars:
-    service_region: nova
+    unbound_regional_zone: nova.openstack
     unbound_listen_interface: 127.0.0.1
     unbound_ipv6: false

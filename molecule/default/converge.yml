@@ -1,0 +1,28 @@
+---
+- name: Converge
+  hosts: all
+  pre_tasks:
+    - name: Add the fake test hosts
+      add_host:
+        name: "{{ item.name }}"
+        ansible_host: "{{ item.host }}"
+      with_items:
+        - name: testvalid
+          host: 1.1.1.1
+        - name: testinvalid
+          host: /tmp/chrootpath
+      changed_when: false
+    - name: Add test instance to compute_hosts group
+      add_host:
+        name: "{{ inventory_hostname }}"
+        groups:
+          - compute_hosts
+      changed_when: false
+  tasks:
+    - name: "Include ansible-unbound"
+      include_role: 
+        name: "{{ playbook_dir | dirname | dirname | basename }}"
+  vars:
+    service_region: nova
+    unbound_listen_interface: 127.0.0.1
+    unbound_ipv6: false
