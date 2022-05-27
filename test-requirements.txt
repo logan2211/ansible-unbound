@@ -11,7 +11,7 @@ doc8 # Apache-2.0
 reno>=1.8.0 # Apache2
 
 docker
-molecule==3.6.1
+molecule[docker]==3.6.1
 ansible-lint==5.4.0
 
 # required for openstack template ipaddress validation
