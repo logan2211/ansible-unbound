@@ -21,6 +21,13 @@
   roles:
     - role: "{{ playbook_dir | dirname | dirname | basename }}"
   post_tasks:
+    - name: Ensure pgrep is present
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "{{ pgrep_package_name[ansible_facts['os_family'] | lower] }}"
+        - "{{ host_package_name[ansible_facts['os_family'] | lower] }}"
     - name: Check unbound configuration
       command: unbound-checkconf
       changed_when: false
@@ -56,3 +63,9 @@
     service_region: nova
     unbound_listen_interface: 127.0.0.1
     unbound_ipv6: false
+    pgrep_package_name:
+      redhat: procps-ng
+      debian: procps
+    host_package_name:
+      redhat: bind-utils
+      debian: bind9-host
